@@ -1,0 +1,47 @@
+<!-- Denne HTML-fil anvender Thymeleaf-template engine for at gøre det muligt at integrere
+dynamiske data (som en liste over programmeringssprog) ind i HTML -->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>List of players</title>
+    <!-- Grundlæggende opsætning med meta-tag og titel -->
+</head>
+<body>
+
+<h1>FootballPlayers</h1>
+
+<!-- Link til at tilføje et nyt sprog -->
+<a href="/players/add">Add new player</a>
+
+<!-- Starten af tabellen for at vise programmeringssprog -->
+<table>
+    <thead>
+    <tr>
+        <!-- Kolonneoverskrifter for tabellen -->
+        <th>ID</th>
+        <th>name</th>
+        <th>age</th>
+        <th>club</th>
+        <th>foot</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr th:each="FootballPlayers : ${players}">
+        <td th:text="${players.name}">name</td>
+        <td th:text="${players.age}">age</td>
+        <td th:text="${players.club}">club</td>
+        <td th:text="${players.foot}">foot</td>
+        <td>
+            <!-- Link til at redigere et sprog -->
+            <a th:href="@{/players/edit/{id}(id=${players.id})}">Edit</a>
+            <!-- Link til at slette et sprog -->
+            <a th:href="@{/players/delete/{id}(id=${players.getID()})}" onclick="return confirm('Er du sikker på, at du vil slette dette sprog?');">Slet</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
